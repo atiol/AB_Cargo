@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AB_CargoModels.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="TRACKING_NO" />
+          </Key>
+          <Property Name="VOLUME" Type="number" Precision="6" Scale="2" />
+          <Property Name="WEIGHT" Type="number" Precision="6" Scale="2" />
+          <Property Name="FEE" Type="number" Precision="6" Scale="2" />
+          <Property Name="TRACKING_NO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENT_DATE" Type="date" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="100" />
+          <Property Name="STATUS_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENDER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CARGO_STATUS">
+          <Key>
+            <PropertyRef Name="STATUS_ID" />
+          </Key>
+          <Property Name="STATUS_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MESSAGE" Type="varchar2" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LOCATION">
+          <Key>
+            <PropertyRef Name="CITY_ID" />
+          </Key>
+          <Property Name="CITY_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CITY_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECEIVER">
+          <Key>
+            <PropertyRef Name="RECEIVER_ID" />
+          </Key>
+          <Property Name="FIRST_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="11" Nullable="false" />
+          <Property Name="SENDER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CITY" Type="varchar2" MaxLength="20" />
+          <Property Name="RECEIVER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SENDER">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="TC" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="50" />
+          <Property Name="LAST_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="11" Nullable="false" />
+          <Property Name="CITY" Type="varchar2" MaxLength="50" />
+          <Property Name="S_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUBSCRIBERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_MESSAGES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="MESSAGE" Type="varchar2" MaxLength="500" Nullable="false" />
+          <Property Name="SENT" Type="date" Nullable="false" />
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ATIOL.GET_CITIES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GET_CITIES">
+          <Key>
+            <PropertyRef Name="CITY_NAME" />
+          </Key>
+          <Property Name="CITY_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="SYS_C0011620">
+          <End Role="CARGO_STATUS" Type="Self.CARGO_STATUS" Multiplicity="1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO_STATUS">
+              <PropertyRef Name="STATUS_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="STATUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0011659">
+          <End Role="SENDER" Type="Self.SENDER" Multiplicity="1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SENDER">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0011660">
+          <End Role="SENDER" Type="Self.SENDER" Multiplicity="1" />
+          <End Role="RECEIVER" Type="Self.RECEIVER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SENDER">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="RECEIVER">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AB_CargoModelsStoreContainer">
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="CARGO_STATUS" EntityType="Self.CARGO_STATUS" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="LOCATION" EntityType="Self.LOCATION" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="RECEIVER" EntityType="Self.RECEIVER" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="SENDER" EntityType="Self.SENDER" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="SUBSCRIBERS" EntityType="Self.SUBSCRIBERS" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="USER_MESSAGES" EntityType="Self.USER_MESSAGES" Schema="ATIOL" store:Type="Tables" />
+          <EntitySet Name="GET_CITIES" EntityType="Self.GET_CITIES" store:Type="Views" store:Schema="ATIOL">
+            <DefiningQuery>SELECT 
+"GET_CITIES"."CITY_NAME" AS "CITY_NAME"
+FROM "ATIOL"."GET_CITIES" "GET_CITIES"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="SYS_C0011620" Association="Self.SYS_C0011620">
+            <End Role="CARGO_STATUS" EntitySet="CARGO_STATUS" />
+            <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0011659" Association="Self.SYS_C0011659">
+            <End Role="SENDER" EntitySet="SENDER" />
+            <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0011660" Association="Self.SYS_C0011660">
+            <End Role="SENDER" EntitySet="SENDER" />
+            <End Role="RECEIVER" EntitySet="RECEIVER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AB_CargoModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="TRACKING_NO" />
+          </Key>
+          <Property Name="VOLUME" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="WEIGHT" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="FEE" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRACKING_NO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENT_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENDER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="CARGO_STATUS" Relationship="Self.SYS_C0011620" FromRole="CARGO" ToRole="CARGO_STATUS" />
+          <NavigationProperty Name="SENDER" Relationship="Self.SYS_C0011659" FromRole="CARGO" ToRole="SENDER" />
+        </EntityType>
+        <EntityType Name="CARGO_STATUS">
+          <Key>
+            <PropertyRef Name="STATUS_ID" />
+          </Key>
+          <Property Name="STATUS_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CARGOes" Relationship="Self.SYS_C0011620" FromRole="CARGO_STATUS" ToRole="CARGO" />
+        </EntityType>
+        <EntityType Name="LOCATION">
+          <Key>
+            <PropertyRef Name="CITY_ID" />
+          </Key>
+          <Property Name="CITY_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CITY_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECEIVER">
+          <Key>
+            <PropertyRef Name="RECEIVER_ID" />
+          </Key>
+          <Property Name="FIRST_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SENDER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CITY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RECEIVER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="SENDER" Relationship="Self.SYS_C0011660" FromRole="RECEIVER" ToRole="SENDER" />
+        </EntityType>
+        <EntityType Name="SENDER">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="TC" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="CARGOes" Relationship="Self.SYS_C0011659" FromRole="SENDER" ToRole="CARGO" />
+          <NavigationProperty Name="RECEIVERs" Relationship="Self.SYS_C0011660" FromRole="SENDER" ToRole="RECEIVER" />
+        </EntityType>
+        <EntityType Name="SUBSCRIBER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_MESSAGES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SENT" Type="DateTime" Nullable="false" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="GET_CITIES">
+          <Key>
+            <PropertyRef Name="CITY_NAME" />
+          </Key>
+          <Property Name="CITY_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="SYS_C0011620">
+          <End Role="CARGO_STATUS" Type="Self.CARGO_STATUS" Multiplicity="1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO_STATUS">
+              <PropertyRef Name="STATUS_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="STATUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0011659">
+          <End Role="SENDER" Type="Self.SENDER" Multiplicity="1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SENDER">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0011660">
+          <End Role="SENDER" Type="Self.SENDER" Multiplicity="1" />
+          <End Role="RECEIVER" Type="Self.RECEIVER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SENDER">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="RECEIVER">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AB_CargoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARGOes" EntityType="Self.CARGO" />
+          <EntitySet Name="CARGO_STATUS" EntityType="Self.CARGO_STATUS" />
+          <EntitySet Name="LOCATIONs" EntityType="Self.LOCATION" />
+          <EntitySet Name="RECEIVERs" EntityType="Self.RECEIVER" />
+          <EntitySet Name="SENDERs" EntityType="Self.SENDER" />
+          <EntitySet Name="SUBSCRIBERS" EntityType="Self.SUBSCRIBER" />
+          <EntitySet Name="USER_MESSAGES" EntityType="Self.USER_MESSAGES" />
+          <EntitySet Name="GET_CITIES" EntityType="Self.GET_CITIES" />
+          <AssociationSet Name="SYS_C0011620" Association="Self.SYS_C0011620">
+            <End Role="CARGO_STATUS" EntitySet="CARGO_STATUS" />
+            <End Role="CARGO" EntitySet="CARGOes" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0011659" Association="Self.SYS_C0011659">
+            <End Role="SENDER" EntitySet="SENDERs" />
+            <End Role="CARGO" EntitySet="CARGOes" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0011660" Association="Self.SYS_C0011660">
+            <End Role="SENDER" EntitySet="SENDERs" />
+            <End Role="RECEIVER" EntitySet="RECEIVERs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AB_CargoModelsStoreContainer" CdmEntityContainer="AB_CargoEntities">
+          <EntitySetMapping Name="CARGOes">
+            <EntityTypeMapping TypeName="AB_CargoModels.CARGO">
+              <MappingFragment StoreEntitySet="CARGO">
+                <ScalarProperty Name="VOLUME" ColumnName="VOLUME" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="TRACKING_NO" ColumnName="TRACKING_NO" />
+                <ScalarProperty Name="SENT_DATE" ColumnName="SENT_DATE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
+                <ScalarProperty Name="SENDER_ID" ColumnName="SENDER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARGO_STATUS">
+            <EntityTypeMapping TypeName="AB_CargoModels.CARGO_STATUS">
+              <MappingFragment StoreEntitySet="CARGO_STATUS">
+                <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOCATIONs">
+            <EntityTypeMapping TypeName="AB_CargoModels.LOCATION">
+              <MappingFragment StoreEntitySet="LOCATION">
+                <ScalarProperty Name="CITY_ID" ColumnName="CITY_ID" />
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECEIVERs">
+            <EntityTypeMapping TypeName="AB_CargoModels.RECEIVER">
+              <MappingFragment StoreEntitySet="RECEIVER">
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="SENDER_ID" ColumnName="SENDER_ID" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="RECEIVER_ID" ColumnName="RECEIVER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SENDERs">
+            <EntityTypeMapping TypeName="AB_CargoModels.SENDER">
+              <MappingFragment StoreEntitySet="SENDER">
+                <ScalarProperty Name="TC" ColumnName="TC" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBSCRIBERS">
+            <EntityTypeMapping TypeName="AB_CargoModels.SUBSCRIBER">
+              <MappingFragment StoreEntitySet="SUBSCRIBERS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_MESSAGES">
+            <EntityTypeMapping TypeName="AB_CargoModels.USER_MESSAGES">
+              <MappingFragment StoreEntitySet="USER_MESSAGES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+                <ScalarProperty Name="SENT" ColumnName="SENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GET_CITIES">
+            <EntityTypeMapping TypeName="AB_CargoModels.GET_CITIES">
+              <MappingFragment StoreEntitySet="GET_CITIES">
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

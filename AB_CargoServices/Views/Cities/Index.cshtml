@@ -1,0 +1,34 @@
+﻿@model IEnumerable<AB_CargoServices.Models.LOCATION>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminView.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CITY_NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CITY_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CITY_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CITY_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CITY_ID })
+        </td>
+    </tr>
+}
+
+</table>

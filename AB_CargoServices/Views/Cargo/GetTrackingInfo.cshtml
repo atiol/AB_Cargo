@@ -1,0 +1,54 @@
+﻿@model AB_CargoServices.Models.TrackingDetailsViewModel
+@{
+    ViewBag.Title = "GetTrackingInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetTrackingInfo", "Cargo", FormMethod.Get))
+        {
+            <div class="input-group">
+                @Html.TextBox("TrackingNo", "", new { @class = "form-control", @placeholder = "TrackID" })
+                <div class="input-group-btn">
+                    <input type="submit" value="Get Info" class="btn btn-success btn-flat" />
+                </div>
+            </div>
+        }
+        <hr />
+
+        @if (Model != null)
+        {
+            <p>@ViewBag.TrackerMsg</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayName("SenderFName")</th>
+                        <th>@Html.DisplayName("SenderLName")</th>
+                        <th>@Html.DisplayName("ReceiverFName")</th>
+                        <th>@Html.DisplayName("ReceiverLName")</th>
+                        <th>@Html.DisplayName("Date Sent")</th>
+                        <th>@Html.DisplayName("Status")</th>
+                        <th>@Html.DisplayName("Description")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.SF_Name</td>
+                        <td>@Model.SL_Name</td>
+                        <td>@Model.RF_Name</td>
+                        <td>@Model.RL_Name</td>
+                        <td>@Model.Sent</td>
+                        <td>@Model.CargoStatus</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-red">@ViewBag.TrackerMsg</p>
+        }
+    </div>
+</div>
+
