@@ -26,11 +26,9 @@ namespace AB_CargoServices.Models
         private OracleConnection conn;
         public void Connection()
         {
-            string constring = ConfigurationManager.ConnectionStrings["AB_CargoDB"].ConnectionString;
+            string constring = ConfigurationManager.ConnectionStrings["AB_Cargo"].ConnectionString;
             conn = new OracleConnection(constring);
         }
-
-        
 
         public TrackingDetailsViewModel TrackingInfo(decimal trackingId)
         {

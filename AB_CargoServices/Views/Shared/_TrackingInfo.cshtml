@@ -1,0 +1,40 @@
+﻿
+@model AB_CargoServices.Models.TrackingDetailsViewModel
+
+<!-- Modal -->
+<div id="trmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Modal Header</h5>
+            </div>
+            <div class="modal-body">
+                @if (Model != null)
+                {
+                    <dl>
+                        <dt>Sender</dt>
+                        <dd>@Model.SF_Name @Model.SL_Name</dd>
+                        <dt>Receiver</dt>
+                        <dd>@Model.RF_Name @Model.RL_Name</dd>
+                        <dt>Cargo Status</dt>
+                        <dd>@Model.CargoStatus</dd>
+                        <dt>Sent Date</dt>
+                        <dd>@Model.Sent</dd>
+                        <dt>Description</dt>
+                        <dd>@Model.Description</dd>
+                    </dl>
+                }
+                else
+                {
+                    <small>The Tracking Id does not exist in our database</small>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -139,7 +139,7 @@ namespace AB_CargoServices.Controllers
                 return View(TrackInfo);
             }
 
-            ViewBag.TrackerMsg = "Tracking ID does not exist in our database!";
+            ViewBag.TrackerMsg = "Incorrect Tracking ID";
             return View();
         }
     }

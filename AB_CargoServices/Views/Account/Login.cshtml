@@ -1,5 +1,6 @@
 ﻿@using AB_CargoServices.Models
 @model LoginViewModel
+
 @{
     Layout = "";
     ViewBag.Title = "Log in";
@@ -26,7 +27,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="@Url.Action("Index", "Test")"><b>Admin</b>Panel</a>
+            <a href="@Url.Action("Index", "CPanel")"><b>Admin</b>Panel</a>
         </div>
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
