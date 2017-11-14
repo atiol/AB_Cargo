@@ -270,19 +270,28 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\main.css" />
-    <Content Include="Content\owl.carousel.css" />
-    <Content Include="Content\owl.transitions.css" />
-    <Content Include="Content\prettyPhoto.css" />
-    <Content Include="Content\responsive.css" />
-    <Content Include="Content\roles.css" />
+    <Content Include="Content\css\AdminLTE.min.css" />
+    <Content Include="Content\css\animate.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\ionicons.min.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\owl.carousel.css" />
+    <Content Include="Content\css\owl.transitions.css" />
+    <Content Include="Content\css\prettyPhoto.css" />
+    <Content Include="Content\css\responsive.css" />
+    <Content Include="Content\css\roles.css" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\skin-black.min.css" />
+    <Content Include="Content\css\skin-green.min.css" />
+    <Content Include="Content\images\atiol.png" />
+    <Content Include="Content\images\avatar.png" />
+    <Content Include="Content\images\bg.jpg" />
+    <Content Include="Content\images\me.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -391,7 +400,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\mainsite-images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

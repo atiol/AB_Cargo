@@ -189,7 +189,7 @@
                     {
                         @Html.AntiForgeryToken()
                         <div class="input-group">
-                            @Html.TextBox("q","", new { @class = "form-control", @placeholder = "Search..." })
+                            @Html.TextBox("q","", htmlAttributes: new { @class = "form-control", @placeholder = "Search..." })
                             <span class="input-group-btn">
                                 <button class="btn btn-flat" id="search-btn" name="search" type="submit">
                                     <i class="fa fa-search"></i>

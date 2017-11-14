@@ -13,22 +13,37 @@
                     Send your cargo today and stay updated with the status of your cargo all the way until delivery.
                 </p>
                 <div id="trackcargo">
-                    @using (Html.BeginForm("GetTrackingInfo", "Cargo", FormMethod.Get, new {@class = "form-inline"}))
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "form-inline"}))
                     {
                         @Html.AntiForgeryToken();
                         @Html.ValidationSummary(true);
                         <p>@ViewBag.TrackerMsg</p>
                         <div class="input-group">
-                            @Html.TextBox("TrackingNo", "", new { @class = "form-control", @placeholder = "Tracking ID"})
+                            @Html.TextBox("trackingNo", "", new { @class = "form-control", @placeholder = "Tracking ID"})
                             <div class="input-group-btn">
-                                <input type="submit" value="Track" class="btn btn-primary btn-flat" data-target="#trmodal" />
+                                <input type="submit" value="Track" class="btn btn-primary btn-flat" />
                             </div>
                         </div>
                     }
                 </div>
                 <div>
-                    @Html.Partial("_TrackingInfo", Model)
+                    <dl>
+                        @if (Model != null)
+                        {
+                            <dt>Sender</dt>
+                            <dd>@Model.SF_Name @Model.SL_Name</dd>
+                            <dt>Receiver</dt>
+                            <dd>@Model.RF_Name @Model.RL_Name</dd>
+                            <dt>Cargo Status</dt>
+                            <dd>@Model.CargoStatus</dd>
+                            <dt>Sent Date</dt>
+                            <dd>@Model.Sent</dd>
+                            <dt>Description</dt>
+                            <dd>@Model.Description</dd>
+                        }
+                    </dl>
                 </div>
+
             </div>
         </div>
     </div>
@@ -103,7 +118,7 @@
             <div class="col-sm-6 col-md-6">
                 <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
                     <div class="team-img">
-                        <img class="img-responsive" src="~/Content/images/mainsite-images/team/01.jpg" alt="">
+                        <img class="img-responsive" src="~/Content/images/atiol.png" alt="Atiol">
                     </div>
                     <div class="team-info">
                         <h3>Atiol Raphael Dario Beato</h3>
@@ -121,7 +136,7 @@
             <div class="col-sm-6 col-md-6">
                 <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
                     <div class="team-img">
-                        <img class="img-responsive" src="~/Content/images/mainsite-images/team/02.jpg" alt="">
+                        <img class="img-responsive" src="~/Content/images/me.png" alt="me">
                     </div>
                     <div class="team-info">
                         <h3>Emine Çıyra</h3>
@@ -164,21 +179,33 @@
                             Gazi University<br>
                             <abbr title="Phone">P:</abbr> (123) 456-7890
                         </address>
-                        <form id="main-contact-form" name="contact-form" method="post" action="#">
+                        @using (Html.BeginForm())
+                        {
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Name" required>
+                                @Html.TextBox("userName", "", new {@class = "form-control", placeholder="Name"})
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                @Html.TextBox("userEmail", "", new { @class = "form-control", placeholder = "Email" })
                             </div>
                             <div class="form-group">
-                                <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                                @Html.TextArea("userMessage", "", new { @class = "form-control", placeholder = "Message", rows="8" })
                             </div>
-                            <div class="form-group">
-                                <textarea name="message" class="form-control" rows="8" placeholder="Message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
+                            <button type="submit" class="btn btn-primary btn-flat" value="Send Message"></button>
+                        }
+                    <!--
+                    <form id="main-contact-form" name="contact-form" method="post" action="#">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" rows="8" placeholder="Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    -->
                     </div>
                 </div>
             </div>

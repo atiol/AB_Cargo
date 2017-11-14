@@ -10,6 +10,7 @@ namespace AB_CargoServices.Models
 
         [Required]
         [EmailAddress]
+
         [Display(Name="Your Email")]
         public string Email { get; set; }
 

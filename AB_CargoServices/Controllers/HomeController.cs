@@ -12,9 +12,47 @@ namespace AB_CargoServices.Controllers
 {
     public class HomeController : Controller
     {
+        private TrackerDb tdb = new TrackerDb();
+        private TrackingDetailsViewModel _trackInfo;
+
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(string trackingNo)
+        {
+            TrackingDetailsViewModel result = GetTrackingInfo(trackingNo);
+            if (result == null)
+            {
+                ViewBag.TrackerMsg = "Incorrect Tracking ID";
+                return View();
+            }
+                
+            ModelState.Clear();
+            ViewBag.TrackerMsg = "Correct Tracking ID";
+            return View(result);
+        }
+
+        public TrackingDetailsViewModel GetTrackingInfo(string trackingNo)
+        {
+            decimal trackingId;
+            if (string.IsNullOrEmpty(trackingNo))
+            {
+                return null;
+            }
+            if (!(Decimal.TryParse(trackingNo, out trackingId)))
+            {
+                ViewBag.TrackerMsg = "Please enter an 8 digit number.";
+                return null;
+            }
+
+            _trackInfo = new TrackingDetailsViewModel();
+            _trackInfo = tdb.TrackingInfo(trackingId);
+            
+            return _trackInfo == null ? null : _trackInfo;
         }
 
         // GET: User Profile photo

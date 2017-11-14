@@ -13,8 +13,8 @@ namespace AB_CargoServices
                         "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/commonCss").Include(
-                "~/Content/bootstrap.min.css",
-                "~/Content/font-awesome.min.css"));
+                "~/Content/css/bootstrap.min.css",
+                "~/Content/css/font-awesome.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -45,23 +45,23 @@ namespace AB_CargoServices
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/site").Include(
-                      "~/Content/Site.css"));
+                      "~/Content/css/Site.css"));
 
             // Admin dashboard css
             bundles.Add(new StyleBundle("~/Content/dashboardCss").Include(
-                        "~/Content/ionicons.min.css",
-                        "~/Content/AdminLTE.min.css",
-                        "~/Content/skin-black.min.css",
-                        "~/Content/skin-green.min.css"));
+                        "~/Content/css/ionicons.min.css",
+                        "~/Content/css/AdminLTE.min.css",
+                        "~/Content/css/skin-black.min.css",
+                        "~/Content/css/skin-green.min.css"));
 
             // Main site css
             bundles.Add(new StyleBundle("~/Content/mainSiteCss").Include(
-                "~/Content/animate.min.css",
-                "~/Content/owl.carousel.css",
-                "~/Content/owl.transitions.css",
-                "~/Content/prettyPhoto.css",
-                "~/Content/main.css",
-                "~/Content/responsive.css"));
+                "~/Content/css/animate.min.css",
+                "~/Content/css/owl.carousel.css",
+                "~/Content/css/owl.transitions.css",
+                "~/Content/css/prettyPhoto.css",
+                "~/Content/css/main.css",
+                "~/Content/css/responsive.css"));
             BundleTable.EnableOptimizations = true;
         }
     }
