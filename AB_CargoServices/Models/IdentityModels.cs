@@ -45,6 +45,6 @@ namespace AB_CargoServices.Models
             modelBuilder.Entity<IdentityUserLogin>().ToTable("ATIOL.UserLogins");
         }
 
-        public System.Data.Entity.DbSet<AB_CargoServices.Models.SENDER> SENDERs { get; set; }
+        //public DbSet<AB_CargoServices.Models.SENDER> SENDERs { get; set; }
     }
 }

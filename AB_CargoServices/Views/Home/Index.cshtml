@@ -15,8 +15,8 @@
                 <div id="trackcargo">
                     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "form-inline"}))
                     {
-                        @Html.AntiForgeryToken();
-                        @Html.ValidationSummary(true);
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
                         <p>@ViewBag.TrackerMsg</p>
                         <div class="input-group">
                             @Html.TextBox("trackingNo", "", new { @class = "form-control", @placeholder = "Tracking ID"})
@@ -179,8 +179,11 @@
                             Gazi University<br>
                             <abbr title="Phone">P:</abbr> (123) 456-7890
                         </address>
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("ProcessUserMessages", "Home", FormMethod.Post))
                         {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <p>@ViewBag.status</p>
                             <div class="form-group">
                                 @Html.TextBox("userName", "", new {@class = "form-control", placeholder="Name"})
                             </div>
@@ -190,7 +193,11 @@
                             <div class="form-group">
                                 @Html.TextArea("userMessage", "", new { @class = "form-control", placeholder = "Message", rows="8" })
                             </div>
-                            <button type="submit" class="btn btn-primary btn-flat" value="Send Message"></button>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <input type="submit" class="btn btn-primary btn-flat" value="Send Message" />                                
+                                </div>
+                            </div>
                         }
                     <!--
                     <form id="main-contact-form" name="contact-form" method="post" action="#">

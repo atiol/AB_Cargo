@@ -33,7 +33,7 @@
                    </div>
                </div>
                <div class="box-body">
-                   @if (Model.Count() > 0)
+                   @if (Model.Any())
                    {
                        <table class="table table-striped">
                            <tr>
@@ -80,9 +80,12 @@
                                        @Html.DisplayFor(modelItem => item.CITY)
                                    </td>
                                    <td>
-                                       @Html.ActionLink("Edit", "Edit", new { id = item.S_ID }) |
-                                       @Html.ActionLink("Details", "Details", new { id = item.S_ID }) |
-                                       @Html.ActionLink("Delete", "Delete", new { id = item.S_ID })
+                                       <button class="btn btn-default">Action</button>
+                                       
+                                       @Html.ActionLink("Edit", "Edit", new {id = item.S_ID}) |
+                                       @Html.ActionLink("Details", "Details", new {id = item.S_ID}) |
+                                       @Html.ActionLink("Delete", "Delete", new {id = item.S_ID})
+                                       
                                    </td>
                                </tr>
                            }
